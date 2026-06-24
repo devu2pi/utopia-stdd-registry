@@ -1,0 +1,697 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>utopia-stdd-registry — Metodología OpenSpec TDD</title>
+  <style>
+    :root {
+      --bg: #0f1117;
+      --surface: #1a1d27;
+      --surface2: #22263a;
+      --border: #2e3350;
+      --accent: #6c8aff;
+      --accent2: #a78bfa;
+      --green: #34d399;
+      --yellow: #fbbf24;
+      --red: #f87171;
+      --text: #e2e8f0;
+      --muted: #8892a4;
+      --code-bg: #12151f;
+    }
+
+    * { box-sizing: border-box; margin: 0; padding: 0; }
+
+    body {
+      background: var(--bg);
+      color: var(--text);
+      font-family: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
+      font-size: 16px;
+      line-height: 1.6;
+    }
+
+    a { color: var(--accent); text-decoration: none; }
+    a:hover { text-decoration: underline; }
+
+    /* Layout */
+    .container { max-width: 860px; margin: 0 auto; padding: 0 24px; }
+
+    /* Nav */
+    nav {
+      border-bottom: 1px solid var(--border);
+      padding: 16px 0;
+      position: sticky;
+      top: 0;
+      background: var(--bg);
+      z-index: 10;
+    }
+    nav .inner {
+      max-width: 860px;
+      margin: 0 auto;
+      padding: 0 24px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+    }
+    .nav-logo {
+      font-size: 14px;
+      font-weight: 600;
+      color: var(--text);
+      display: flex;
+      align-items: center;
+      gap: 8px;
+    }
+    .nav-logo .badge {
+      font-size: 10px;
+      background: var(--accent);
+      color: #fff;
+      padding: 2px 6px;
+      border-radius: 4px;
+      font-weight: 500;
+    }
+    nav ul {
+      list-style: none;
+      display: flex;
+      gap: 24px;
+    }
+    nav ul a {
+      color: var(--muted);
+      font-size: 14px;
+    }
+    nav ul a:hover { color: var(--text); }
+
+    /* Hero */
+    .hero {
+      padding: 80px 0 64px;
+      text-align: center;
+    }
+    .hero-tag {
+      display: inline-block;
+      font-size: 12px;
+      font-weight: 600;
+      letter-spacing: 0.08em;
+      text-transform: uppercase;
+      color: var(--accent);
+      border: 1px solid var(--accent);
+      padding: 4px 12px;
+      border-radius: 20px;
+      margin-bottom: 24px;
+    }
+    h1 {
+      font-size: 48px;
+      font-weight: 700;
+      line-height: 1.15;
+      margin-bottom: 20px;
+      background: linear-gradient(135deg, #fff 0%, var(--accent2) 100%);
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      background-clip: text;
+    }
+    .hero-sub {
+      font-size: 18px;
+      color: var(--muted);
+      max-width: 540px;
+      margin: 0 auto 40px;
+    }
+    .hero-buttons {
+      display: flex;
+      gap: 12px;
+      justify-content: center;
+      flex-wrap: wrap;
+    }
+    .btn {
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      padding: 12px 24px;
+      border-radius: 8px;
+      font-size: 14px;
+      font-weight: 600;
+      cursor: pointer;
+      transition: opacity 0.15s;
+    }
+    .btn:hover { opacity: 0.85; text-decoration: none; }
+    .btn-primary { background: var(--accent); color: #fff; }
+    .btn-secondary { background: var(--surface2); color: var(--text); border: 1px solid var(--border); }
+
+    /* Sections */
+    section { padding: 64px 0; border-top: 1px solid var(--border); }
+    h2 {
+      font-size: 28px;
+      font-weight: 700;
+      margin-bottom: 8px;
+    }
+    .section-sub {
+      color: var(--muted);
+      margin-bottom: 40px;
+      font-size: 15px;
+    }
+    h3 { font-size: 17px; font-weight: 600; margin-bottom: 10px; }
+
+    /* Philosophy callout */
+    .callout {
+      background: var(--surface);
+      border: 1px solid var(--border);
+      border-left: 3px solid var(--accent);
+      border-radius: 8px;
+      padding: 20px 24px;
+      margin-bottom: 40px;
+      font-size: 17px;
+      color: var(--text);
+      font-style: italic;
+    }
+    .callout span { color: var(--muted); font-size: 13px; display: block; margin-top: 8px; font-style: normal; }
+
+    /* Workflow */
+    .workflow {
+      display: flex;
+      flex-direction: column;
+      gap: 0;
+    }
+    .workflow-step {
+      display: flex;
+      gap: 20px;
+      position: relative;
+    }
+    .workflow-step:not(:last-child)::after {
+      content: '';
+      position: absolute;
+      left: 19px;
+      top: 44px;
+      width: 2px;
+      height: calc(100% - 4px);
+      background: var(--border);
+    }
+    .step-icon {
+      width: 40px;
+      height: 40px;
+      border-radius: 50%;
+      background: var(--surface2);
+      border: 2px solid var(--border);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 13px;
+      font-weight: 700;
+      color: var(--accent);
+      flex-shrink: 0;
+      position: relative;
+      z-index: 1;
+    }
+    .step-icon.gate {
+      border-color: var(--yellow);
+      color: var(--yellow);
+    }
+    .step-body { padding: 8px 0 32px; }
+    .step-cmd {
+      display: inline-block;
+      font-family: 'Fira Code', 'Cascadia Code', monospace;
+      font-size: 13px;
+      background: var(--code-bg);
+      color: var(--accent);
+      padding: 3px 10px;
+      border-radius: 5px;
+      border: 1px solid var(--border);
+      margin-bottom: 6px;
+    }
+    .step-desc { color: var(--muted); font-size: 14px; }
+    .gate-label {
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+      font-size: 12px;
+      color: var(--yellow);
+      border: 1px solid var(--yellow);
+      padding: 2px 8px;
+      border-radius: 4px;
+      margin-top: 6px;
+    }
+
+    /* Code blocks */
+    pre {
+      background: var(--code-bg);
+      border: 1px solid var(--border);
+      border-radius: 8px;
+      padding: 20px;
+      overflow-x: auto;
+      font-family: 'Fira Code', 'Cascadia Code', monospace;
+      font-size: 13px;
+      line-height: 1.7;
+      margin: 16px 0;
+    }
+    code { color: var(--text); }
+    .hl-comment { color: var(--muted); }
+    .hl-cmd { color: var(--accent); }
+    .hl-str { color: var(--green); }
+    .hl-kw { color: var(--accent2); }
+
+    /* Install steps */
+    .install-steps {
+      display: flex;
+      flex-direction: column;
+      gap: 24px;
+    }
+    .install-step {
+      display: flex;
+      gap: 16px;
+    }
+    .install-num {
+      width: 28px;
+      height: 28px;
+      border-radius: 50%;
+      background: var(--accent);
+      color: #fff;
+      font-size: 13px;
+      font-weight: 700;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      flex-shrink: 0;
+      margin-top: 2px;
+    }
+    .install-content h3 { margin-bottom: 6px; }
+    .install-content p { color: var(--muted); font-size: 14px; margin-bottom: 10px; }
+
+    /* Skills grid */
+    .skills-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(240px, 1fr));
+      gap: 16px;
+    }
+    .skill-card {
+      background: var(--surface);
+      border: 1px solid var(--border);
+      border-radius: 10px;
+      padding: 20px;
+      transition: border-color 0.15s;
+    }
+    .skill-card:hover { border-color: var(--accent); }
+    .skill-name {
+      font-family: monospace;
+      font-size: 13px;
+      color: var(--accent);
+      margin-bottom: 8px;
+    }
+    .skill-desc { color: var(--muted); font-size: 13px; }
+
+    /* Archetypes */
+    .arch-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(220px, 1fr));
+      gap: 16px;
+    }
+    .arch-card {
+      background: var(--surface);
+      border: 1px solid var(--border);
+      border-radius: 10px;
+      padding: 20px;
+    }
+    .arch-name {
+      font-weight: 700;
+      margin-bottom: 6px;
+    }
+    .arch-stack {
+      font-size: 12px;
+      color: var(--muted);
+      margin-bottom: 12px;
+    }
+    .arch-tags { display: flex; flex-wrap: wrap; gap: 6px; }
+    .tag {
+      font-size: 11px;
+      padding: 2px 8px;
+      border-radius: 4px;
+      background: var(--surface2);
+      color: var(--muted);
+      border: 1px solid var(--border);
+    }
+
+    /* Status states */
+    .states-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(180px, 1fr));
+      gap: 12px;
+    }
+    .state-card {
+      background: var(--surface);
+      border: 1px solid var(--border);
+      border-radius: 8px;
+      padding: 14px 16px;
+    }
+    .state-name {
+      font-family: monospace;
+      font-size: 12px;
+      font-weight: 700;
+      margin-bottom: 4px;
+    }
+    .state-card.done .state-name { color: var(--green); }
+    .state-card.active .state-name { color: var(--accent); }
+    .state-card.blocked .state-name { color: var(--red); }
+    .state-card.warn .state-name { color: var(--yellow); }
+    .state-desc { font-size: 12px; color: var(--muted); }
+
+    /* Footer */
+    footer {
+      border-top: 1px solid var(--border);
+      padding: 40px 0;
+      text-align: center;
+      color: var(--muted);
+      font-size: 13px;
+    }
+    footer a { color: var(--muted); }
+    footer a:hover { color: var(--text); }
+
+    @media (max-width: 600px) {
+      h1 { font-size: 32px; }
+      nav ul { display: none; }
+    }
+  </style>
+</head>
+<body>
+
+<nav>
+  <div class="inner">
+    <div class="nav-logo">
+      utopia-stdd-registry
+      <span class="badge">v1.1</span>
+    </div>
+    <ul>
+      <li><a href="#instalacion">Instalación</a></li>
+      <li><a href="#workflow">Workflow</a></li>
+      <li><a href="#skills">Skills</a></li>
+      <li><a href="#arquetipos">Arquetipos</a></li>
+      <li><a href="https://github.com/devu2pi/utopia-stdd-registry">GitHub →</a></li>
+    </ul>
+  </div>
+</nav>
+
+<div class="container">
+
+  <!-- Hero -->
+  <div class="hero">
+    <div class="hero-tag">OpenSpec · TDD-Driven · Claude Code</div>
+    <h1>Metodología de desarrollo<br>asistido por IA</h1>
+    <p class="hero-sub">
+      Registry central de skills, arquetipos y comandos para proyectos con Claude Code.
+      Especificá antes de construir. Verificá antes de archivar.
+    </p>
+    <div class="hero-buttons">
+      <a href="#instalacion" class="btn btn-primary">Empezar →</a>
+      <a href="https://github.com/devu2pi/utopia-stdd-registry" class="btn btn-secondary">Ver en GitHub</a>
+    </div>
+  </div>
+
+  <!-- Instalación -->
+  <section id="instalacion">
+    <h2>Instalación</h2>
+    <p class="section-sub">Dos pasos: instalar el comando global una vez, luego inicializar cada proyecto.</p>
+
+    <div class="install-steps">
+
+      <div class="install-step">
+        <div class="install-num">1</div>
+        <div class="install-content">
+          <h3>Instalar el comando global <code style="font-size:13px;background:var(--code-bg);padding:2px 8px;border-radius:4px;border:1px solid var(--border)">/opsx-init</code></h3>
+          <p>Hacelo una sola vez en tu máquina. Instala el comando en Claude Code de forma global para que esté disponible en cualquier proyecto.</p>
+          <pre><code><span class="hl-comment"># Una sola vez — instala /opsx-init globalmente</span>
+<span class="hl-cmd">mkdir</span> -p ~/.claude/commands
+<span class="hl-cmd">curl</span> -fsSL https://raw.githubusercontent.com/devu2pi/utopia-stdd-registry/main/commands/opsx-init.md \
+  -o ~/.claude/commands/opsx-init.md</code></pre>
+        </div>
+      </div>
+
+      <div class="install-step">
+        <div class="install-num">2</div>
+        <div class="install-content">
+          <h3>Inicializar un proyecto</h3>
+          <p>Abrí Claude Code en la carpeta del proyecto (nuevo o existente) y ejecutá:</p>
+          <pre><code><span class="hl-comment"># En Claude Code, parado en la raíz del proyecto</span>
+<span class="hl-kw">/opsx-init</span></code></pre>
+          <p>Claude detecta si el proyecto es nuevo o existente, pregunta el archetype si hace falta, y configura todo automáticamente.</p>
+        </div>
+      </div>
+
+      <div class="install-step">
+        <div class="install-num">3</div>
+        <div class="install-content">
+          <h3>Completar el contexto del proyecto</h3>
+          <p>El único paso manual: completar <code style="font-size:13px;background:var(--code-bg);padding:2px 8px;border-radius:4px;border:1px solid var(--border)">openspec/project.md</code> con la descripción real del sistema, módulos y decisiones técnicas. Claude lo lee al inicio de cada sesión.</p>
+          <pre><code><span class="hl-comment"># Verificar estado inicial</span>
+<span class="hl-kw">/opsx-status</span></code></pre>
+        </div>
+      </div>
+
+    </div>
+  </section>
+
+  <!-- Workflow -->
+  <section id="workflow">
+    <h2>Workflow</h2>
+    <p class="section-sub">Cada cambio de código sigue este ciclo — sin excepciones.</p>
+
+    <div class="callout">
+      "Acordá antes de construir. El spec lidera, el código sigue."
+      <span>— Filosofía OpenSpec</span>
+    </div>
+
+    <div class="workflow">
+
+      <div class="workflow-step">
+        <div class="step-icon">1</div>
+        <div class="step-body">
+          <div class="step-cmd">/opsx-propose &lt;nombre&gt;</div>
+          <h3>Proponer</h3>
+          <p class="step-desc">Creá una propuesta con qué se cambia, por qué, qué incluye y qué no. Claude valida que <code>openspec/project.md</code> esté completo antes de continuar.</p>
+        </div>
+      </div>
+
+      <div class="workflow-step">
+        <div class="step-icon gate">✓</div>
+        <div class="step-body">
+          <div class="gate-label">⚠ Gate</div>
+          <p class="step-desc" style="margin-top:6px">La proposal debe ser aprobada explícitamente antes de avanzar. Claude la revisa y marca como <strong>APPROVED</strong>.</p>
+        </div>
+      </div>
+
+      <div class="workflow-step">
+        <div class="step-icon">2</div>
+        <div class="step-body">
+          <div class="step-cmd">/opsx-apply &lt;nombre&gt;</div>
+          <h3>Aplicar</h3>
+          <p class="step-desc">Genera <code>spec.md</code> (escenarios de comportamiento), <code>design.md</code> (decisiones técnicas) y <code>tasks.md</code> (checklist de implementación).</p>
+        </div>
+      </div>
+
+      <div class="workflow-step">
+        <div class="step-icon">3</div>
+        <div class="step-body">
+          <div class="step-cmd">/opsx-tdd-plan &lt;nombre&gt;</div>
+          <h3>Planificar tests</h3>
+          <p class="step-desc">Define los tests requeridos derivados de los escenarios de la spec. Cada tarea de implementación debe tener al menos un <code>TEST-XX</code> asociado.</p>
+          <div class="gate-label">⚠ Gate — no implementar sin tdd:plan completo</div>
+        </div>
+      </div>
+
+      <div class="workflow-step">
+        <div class="step-icon">4</div>
+        <div class="step-body">
+          <div class="step-cmd">implementar</div>
+          <h3>Implementar</h3>
+          <p class="step-desc">Código y tests en paralelo, siguiendo el <code>tasks.md</code> generado. Sin sorpresas: todo lo que hay que hacer ya está listado.</p>
+        </div>
+      </div>
+
+      <div class="workflow-step">
+        <div class="step-icon">5</div>
+        <div class="step-body">
+          <div class="step-cmd">/opsx-tdd-verify &lt;nombre&gt;</div>
+          <h3>Verificar</h3>
+          <p class="step-desc">Ejecuta los comandos de test del stack, verifica criterios de aceptación, chequea alineación con el registry. Produce <strong>VERIFIED ✓</strong> o <strong>BLOCKED</strong> con motivo.</p>
+          <div class="gate-label">⚠ Gate — no archivar sin VERIFIED ✓</div>
+        </div>
+      </div>
+
+      <div class="workflow-step">
+        <div class="step-icon">6</div>
+        <div class="step-body">
+          <div class="step-cmd">/opsx-archive &lt;nombre&gt;</div>
+          <h3>Archivar</h3>
+          <p class="step-desc">Mergea la spec al source of truth en <code>openspec/specs/</code>, actualiza <code>project.md</code> con las decisiones tomadas y sugiere el commit de cierre.</p>
+        </div>
+      </div>
+
+    </div>
+
+    <!-- Estados -->
+    <h3 style="margin-top:48px;margin-bottom:16px">Estados de un cambio</h3>
+    <div class="states-grid">
+      <div class="state-card active">
+        <div class="state-name">DRAFT</div>
+        <div class="state-desc">Propuesta creada, pendiente de completar</div>
+      </div>
+      <div class="state-card active">
+        <div class="state-name">APPROVED</div>
+        <div class="state-desc">Proposal aprobada, lista para /opsx-apply</div>
+      </div>
+      <div class="state-card active">
+        <div class="state-name">APPLIED</div>
+        <div class="state-desc">Artefactos generados, lista para tdd:plan</div>
+      </div>
+      <div class="state-card warn">
+        <div class="state-name">TDD_PLANNED</div>
+        <div class="state-desc">Tests definidos, en implementación</div>
+      </div>
+      <div class="state-card blocked">
+        <div class="state-name">BLOCKED</div>
+        <div class="state-desc">Verificación falló, requiere correcciones</div>
+      </div>
+      <div class="state-card done">
+        <div class="state-name">TDD_VERIFIED</div>
+        <div class="state-desc">Todos los tests pasan, listo para archive</div>
+      </div>
+      <div class="state-card done">
+        <div class="state-name">ARCHIVED</div>
+        <div class="state-desc">Cambio cerrado, spec mergeada</div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Skills -->
+  <section id="skills">
+    <h2>Skills</h2>
+    <p class="section-sub">Archivos Markdown inyectados como contexto en cada sesión de Claude Code. Se consumen desde GitHub automáticamente.</p>
+
+    <div class="skills-grid">
+      <div class="skill-card">
+        <div class="skill-name">openspec/v1</div>
+        <h3>OpenSpec Base</h3>
+        <p class="skill-desc">Metodología SDD core. Workflow, estructura de cambios y reglas de gobernanza. Wrapper sobre Fission-AI/OpenSpec.</p>
+      </div>
+      <div class="skill-card">
+        <div class="skill-name">tdd-extension/v1</div>
+        <h3>TDD Extension</h3>
+        <p class="skill-desc">Agrega fases tdd:plan y tdd:verify al workflow. Define niveles de aprobación (1=auto, 2=par, 3=arquitectura).</p>
+      </div>
+      <div class="skill-card">
+        <div class="skill-name">architecture/v1</div>
+        <h3>Architecture</h3>
+        <p class="skill-desc">Patrones aprobados: capas, data fetching, estado, auth, base de datos. ADRs centrales del equipo.</p>
+      </div>
+      <div class="skill-card">
+        <div class="skill-name">stack/v1</div>
+        <h3>Stack</h3>
+        <p class="skill-desc">Tecnologías aprobadas con versiones, servicios externos y dependencias a evitar.</p>
+      </div>
+      <div class="skill-card">
+        <div class="skill-name">code-review/v1</div>
+        <h3>Code Review</h3>
+        <p class="skill-desc">Checklist y estándares de revisión de código aplicados en la fase tdd:verify.</p>
+      </div>
+    </div>
+
+    <pre style="margin-top:32px"><code><span class="hl-comment"># .agent/config.yaml — cómo un proyecto declara sus skills</span>
+<span class="hl-kw">registry</span>:
+  source: github
+  repo: devu2pi/utopia-stdd-registry
+  ref: main
+
+<span class="hl-kw">skills</span>:
+  openspec:      <span class="hl-str">"v1"</span>
+  tdd-extension: <span class="hl-str">"v1"</span>
+  architecture:  <span class="hl-str">"v1"</span>
+  stack:         <span class="hl-str">"latest"</span>
+  code-review:   <span class="hl-str">"v1"</span></code></pre>
+  </section>
+
+  <!-- Arquetipos -->
+  <section id="arquetipos">
+    <h2>Arquetipos</h2>
+    <p class="section-sub">Templates de proyecto que preconfiguran el stack, skills y estructura de carpetas.</p>
+
+    <div class="arch-grid">
+      <div class="arch-card">
+        <div class="arch-name">webapp-nextjs</div>
+        <div class="arch-stack">SPA / SSR con backend integrado</div>
+        <div class="arch-tags">
+          <span class="tag">Next.js 14</span>
+          <span class="tag">Supabase</span>
+          <span class="tag">TypeScript</span>
+          <span class="tag">Tailwind</span>
+          <span class="tag">shadcn/ui</span>
+          <span class="tag">Vitest</span>
+          <span class="tag">Playwright</span>
+        </div>
+      </div>
+      <div class="arch-card">
+        <div class="arch-name">api-fastapi</div>
+        <div class="arch-stack">API REST con Python</div>
+        <div class="arch-tags">
+          <span class="tag">FastAPI</span>
+          <span class="tag">PostgreSQL</span>
+          <span class="tag">SQLAlchemy</span>
+          <span class="tag">Pydantic v2</span>
+          <span class="tag">pytest</span>
+          <span class="tag">Docker</span>
+        </div>
+      </div>
+      <div class="arch-card">
+        <div class="arch-name">fullstack</div>
+        <div class="arch-stack">Frontend + API separados</div>
+        <div class="arch-tags">
+          <span class="tag">Next.js</span>
+          <span class="tag">FastAPI</span>
+          <span class="tag">Supabase</span>
+          <span class="tag">TypeScript</span>
+          <span class="tag">Python</span>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Agregar skill -->
+  <section>
+    <h2>Contribuir al registry</h2>
+    <p class="section-sub">Cualquier cambio al registry impacta todos los proyectos que consuman skills desde aquí.</p>
+
+    <div class="install-steps">
+      <div class="install-step">
+        <div class="install-num">1</div>
+        <div class="install-content">
+          <h3>Crear branch</h3>
+          <pre><code><span class="hl-cmd">git</span> checkout -b skill/nombre-version</code></pre>
+        </div>
+      </div>
+      <div class="install-step">
+        <div class="install-num">2</div>
+        <div class="install-content">
+          <h3>Editar o crear el skill</h3>
+          <pre><code><span class="hl-comment"># Nuevo skill</span>
+skills/nombre/v1.md
+
+<span class="hl-comment"># Nueva versión de skill existente (breaking change)</span>
+skills/nombre/v2.md</code></pre>
+        </div>
+      </div>
+      <div class="install-step">
+        <div class="install-num">3</div>
+        <div class="install-content">
+          <h3>Actualizar registry.json y abrir PR</h3>
+          <p>Describir el cambio y listar los proyectos impactados. Merge → propagación automática a proyectos con <code>latest</code>.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+</div>
+
+<footer>
+  <div class="container">
+    <p>
+      <a href="https://github.com/devu2pi/utopia-stdd-registry">github.com/devu2pi/utopia-stdd-registry</a>
+      · Mantenido por el equipo de Arquitectura
+      · Basado en <a href="https://github.com/Fission-AI/OpenSpec">Fission-AI/OpenSpec</a>
+    </p>
+  </div>
+</footer>
+
+</body>
+</html>
