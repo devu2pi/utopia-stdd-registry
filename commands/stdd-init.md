@@ -25,8 +25,10 @@ Esperá la respuesta antes de continuar.
 Con el archetype confirmado, ejecutá:
 
 ```bash
-curl -fsSL https://raw.githubusercontent.com/devu2pi/utopia-stdd-registry/main/scripts/init-project.sh | bash -s -- "$(basename $(pwd))" <archetype> .
+curl -fsSL https://raw.githubusercontent.com/devu2pi/utopia-stdd-registry/main/scripts/init-project.sh | bash -s -- "$(basename $(pwd))" <archetype> . --yes
 ```
+
+El flag `--yes` evita prompts interactivos y permite inicializar sobre un directorio existente.
 
 Si el comando falla, mostrá el error y sugerí verificar conexión a internet o acceso a github.com/devu2pi/utopia-stdd-registry.
 

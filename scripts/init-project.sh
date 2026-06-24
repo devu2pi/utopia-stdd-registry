@@ -56,9 +56,20 @@ warn()    { echo -e "${YELLOW}[stdd]${NC} ⚠ $1"; }
 error()   { echo -e "${RED}[stdd]${NC} ✗ $1"; exit 1; }
 
 # ── Argumentos ─────────────────────────────────────────────────────────────
+# Flags
+YES_MODE=false
+for arg in "$@"; do
+  [ "$arg" = "--yes" ] || [ "$arg" = "-y" ] && YES_MODE=true
+done
+
 PROJECT_NAME="${1:-}"
 ARCHETYPE="${2:-}"
 DEST_PATH="${3:-}"
+
+# Limpiar flags de los argumentos posicionales
+[[ "$PROJECT_NAME" == --* ]] && PROJECT_NAME=""
+[[ "$ARCHETYPE" == --* ]] && ARCHETYPE=""
+[[ "$DEST_PATH" == --* ]] && DEST_PATH=""
 
 echo ""
 echo -e "${BLUE}╔══════════════════════════════════════════╗${NC}"
@@ -123,14 +134,20 @@ echo "  Archetype: $ARCHETYPE"
 echo "  Stack:     $STACK_SUMMARY"
 echo "  Destino:   $DEST_PATH"
 echo ""
-read -rp "¿Confirmar? [s/N] " CONFIRM
-[ "$CONFIRM" != "s" ] && [ "$CONFIRM" != "S" ] && { echo "Cancelado."; exit 0; }
+if [ "$YES_MODE" = false ]; then
+  read -rp "¿Confirmar? [s/N] " CONFIRM
+  [ "$CONFIRM" != "s" ] && [ "$CONFIRM" != "S" ] && { echo "Cancelado."; exit 0; }
+fi
 
 # ── Verificar que el destino no existe ─────────────────────────────────────
 if [ -d "$DEST_PATH" ]; then
-  warn "El directorio '$DEST_PATH' ya existe."
-  read -rp "¿Inicializar dentro del directorio existente? [s/N] " OVERWRITE
-  [ "$OVERWRITE" != "s" ] && [ "$OVERWRITE" != "S" ] && { echo "Cancelado."; exit 0; }
+  if [ "$YES_MODE" = false ]; then
+    warn "El directorio '$DEST_PATH' ya existe."
+    read -rp "¿Inicializar dentro del directorio existente? [s/N] " OVERWRITE
+    [ "$OVERWRITE" != "s" ] && [ "$OVERWRITE" != "S" ] && { echo "Cancelado."; exit 0; }
+  else
+    info "Proyecto existente — instalando sobre directorio actual."
+  fi
 fi
 
 # ── Crear estructura ───────────────────────────────────────────────────────
