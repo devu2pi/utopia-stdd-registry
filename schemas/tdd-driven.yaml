@@ -50,8 +50,8 @@ phases:
       - "Nivel de aprobación requerido obtenido"
 
 commands:
-  propose: "/opsx:propose"
-  apply:   "/opsx:apply"
-  tdd_plan:   "/opsx:tdd:plan"
-  tdd_verify: "/opsx:tdd:verify"
-  archive: "/opsx:archive"
+  propose: "/stdd-propose"
+  apply:   "/stdd-apply"
+  tdd_plan:   "/stdd-plan"
+  tdd_verify: "/stdd-verify"
+  archive: "/stdd-archive"

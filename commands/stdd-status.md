@@ -26,11 +26,11 @@ Mostrá el estado actual de todos los cambios OpenSpec en este proyecto.
 
 | Cambio              | Estado        | Próxima acción         |
 |---------------------|---------------|------------------------|
-| migracion-inicial   | APPROVED      | /opsx-apply            |
-| m1-auth             | TDD_PLANNED   | implementar → /opsx-tdd-verify |
+| migracion-inicial   | APPROVED      | /stdd-apply            |
+| m1-auth             | TDD_PLANNED   | implementar → /stdd-verify |
 
 Cambio activo: migracion-inicial
-Ejecutá: /opsx-apply migracion-inicial
+Ejecutá: /stdd-apply migracion-inicial
 ```
 
-Si no hay cambios activos, indicalo y sugerí `/opsx-propose`.
+Si no hay cambios activos, indicalo y sugerí `/stdd-propose`.

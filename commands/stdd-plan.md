@@ -1,11 +1,11 @@
 Definí los tests requeridos para un cambio ANTES de implementar.
 
-El argumento es el nombre del cambio. Ejemplo: `/opsx-tdd-plan m1-auth`
+El argumento es el nombre del cambio. Ejemplo: `/stdd-plan m1-auth`
 
 ## Validaciones previas (BLOQUEANTES)
 
 1. Verificá que el argumento fue provisto.
-2. Leé `openspec/changes/<nombre>/status.json`. El estado DEBE ser `APPLIED`. Si es anterior: "ERROR: ejecutá /opsx-apply <nombre> primero." Si es posterior: "Los tests ya fueron planificados para este cambio."
+2. Leé `openspec/changes/<nombre>/status.json`. El estado DEBE ser `APPLIED`. Si es anterior: "ERROR: ejecutá /stdd-apply <nombre> primero." Si es posterior: "Los tests ya fueron planificados para este cambio."
 3. Verificá que existe `openspec/changes/<nombre>/spec.md` y `design.md`.
 
 ## Qué hacer si las validaciones pasan
@@ -48,7 +48,7 @@ Luego actualizá las tareas de `## Implementación` para que cada una tenga su `
 
 Actualizá `status.json` a `"state": "TDD_PLANNED"`.
 
-Al terminar: "Tests definidos. Podés implementar. Cuando termines, ejecutá /opsx-tdd-verify <nombre>."
+Al terminar: "Tests definidos. Podés implementar. Cuando termines, ejecutá /stdd-verify <nombre>."
 
 ## Regla importante
 

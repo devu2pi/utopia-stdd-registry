@@ -1,12 +1,12 @@
 Iniciá una nueva propuesta de cambio OpenSpec.
 
-El argumento es el nombre del cambio en kebab-case. Ejemplo: `/opsx-propose m1-auth`
+El argumento es el nombre del cambio en kebab-case. Ejemplo: `/stdd-propose m1-auth`
 
 ## Validaciones previas (BLOQUEANTES — detené si alguna falla)
 
-1. Verificá que el argumento fue provisto. Si no: "ERROR: especificá el nombre del cambio. Uso: /opsx-propose <nombre>"
+1. Verificá que el argumento fue provisto. Si no: "ERROR: especificá el nombre del cambio. Uso: /stdd-propose <nombre>"
 2. Verificá que `openspec/project.md` existe y NO está vacío ni es solo un template sin completar (sin placeholders como "[nombre del proyecto]"). Si está incompleto: "ERROR: completá openspec/project.md antes de proponer un cambio."
-3. Verificá que NO existe ya `openspec/changes/<nombre>/proposal.md`. Si existe: "ERROR: el cambio '<nombre>' ya existe. Usá /opsx-status para ver su estado actual."
+3. Verificá que NO existe ya `openspec/changes/<nombre>/proposal.md`. Si existe: "ERROR: el cambio '<nombre>' ya existe. Usá /stdd-status para ver su estado actual."
 4. Verificá que no hay más de 3 cambios en estado PROPOSED o APPLIED simultáneamente. Si hay: "ADVERTENCIA: hay N cambios activos sin completar. ¿Querés continuar de todos modos? Responde 'sí' para confirmar."
 
 ## Qué hacer si las validaciones pasan
@@ -77,7 +77,7 @@ El argumento es el nombre del cambio en kebab-case. Ejemplo: `/opsx-propose m1-a
 4. Mostrá al usuario los archivos creados y decile:
    - Completar los placeholders en `proposal.md`
    - Una vez completo, pedirte que lo revises y lo marques como APPROVED
-   - Que la aprobación desbloquea `/opsx-apply`
+   - Que la aprobación desbloquea `/stdd-apply`
 
 ## Aprobación de la proposal
 
@@ -85,4 +85,4 @@ Cuando el usuario pida aprobar una proposal:
 1. Leé `proposal.md` y verificá que no tenga placeholders sin completar (`[completar]`, `[listar]`, etc.)
 2. Si está completa: actualizá `status.json` con `"state": "APPROVED"` y agregá al historial
 3. Agregá al final de `proposal.md`: `\n---\n**Estado:** APROBADO ✓ — <fecha>`
-4. Confirmá: "Proposal aprobada. Podés ejecutar /opsx-apply <nombre>"
+4. Confirmá: "Proposal aprobada. Podés ejecutar /stdd-apply <nombre>"

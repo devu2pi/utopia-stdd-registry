@@ -27,9 +27,9 @@ if [ -n "$SCRIPT_DIR" ] && [ -f "$SCRIPT_DIR/../registry.json" ]; then
 else
   REGISTRY_DIR="$(mktemp -d)"
   TEMP_REGISTRY="$REGISTRY_DIR"
-  echo -e "\033[0;34m[opsx]\033[0m Descargando registry desde GitHub..."
+  echo -e "\033[0;34m[stdd]\033[0m Descargando registry desde GitHub..."
   git clone --depth=1 --quiet "$REGISTRY_URL" "$REGISTRY_DIR" 2>/dev/null || {
-    echo -e "\033[0;31m[opsx]\033[0m ERROR: No se pudo clonar $REGISTRY_URL"
+    echo -e "\033[0;31m[stdd]\033[0m ERROR: No se pudo clonar $REGISTRY_URL"
     echo "       Verificá tu conexión o que el repo sea público."
     exit 1
   }
@@ -50,10 +50,10 @@ RED='\033[0;31m'
 BLUE='\033[0;34m'
 NC='\033[0m'
 
-info()    { echo -e "${BLUE}[opsx]${NC} $1"; }
-success() { echo -e "${GREEN}[opsx]${NC} ✓ $1"; }
-warn()    { echo -e "${YELLOW}[opsx]${NC} ⚠ $1"; }
-error()   { echo -e "${RED}[opsx]${NC} ✗ $1"; exit 1; }
+info()    { echo -e "${BLUE}[stdd]${NC} $1"; }
+success() { echo -e "${GREEN}[stdd]${NC} ✓ $1"; }
+warn()    { echo -e "${YELLOW}[stdd]${NC} ⚠ $1"; }
+error()   { echo -e "${RED}[stdd]${NC} ✗ $1"; exit 1; }
 
 # ── Argumentos ─────────────────────────────────────────────────────────────
 PROJECT_NAME="${1:-}"
@@ -143,8 +143,8 @@ mkdir -p "$DEST_PATH/.claude/commands"
 mkdir -p "$DEST_PATH/openspec/changes"
 mkdir -p "$DEST_PATH/openspec/specs"
 
-# Copiar comandos OpenSpec
-info "Instalando comandos OpenSpec..."
+# Copiar comandos STDD
+info "Instalando comandos STDD..."
 cp "$COMMANDS_DIR"/*.md "$DEST_PATH/.claude/commands/"
 success "Comandos instalados en .claude/commands/"
 
@@ -190,7 +190,7 @@ echo "Creado en: $DEST_PATH"
 echo ""
 echo "Estructura:"
 echo "  .agent/config.yaml          ← configuración del registry"
-echo "  .claude/commands/           ← comandos OpenSpec (6 comandos)"
+echo "  .claude/commands/           ← comandos STDD (6 comandos)"
 echo "  openspec/project.md         ← completar con contexto del proyecto"
 echo "  openspec/changes/           ← aquí vivirán los cambios"
 echo "  CLAUDE.md                   ← guía para Claude Code"
@@ -198,8 +198,8 @@ echo ""
 echo -e "${YELLOW}Próximos pasos:${NC}"
 echo "  1. cd $DEST_PATH"
 echo "  2. Completar openspec/project.md con el contexto real del proyecto"
-echo "  3. Abrir Claude Code y ejecutar /opsx-status"
-echo "  4. Empezar con /opsx-propose <primer-modulo>"
+echo "  3. Abrir Claude Code y ejecutar /stdd-status"
+echo "  4. Empezar con /stdd-propose <primer-modulo>"
 echo ""
 echo "  Registry: $REGISTRY_DIR"
 echo "  Archetype: $ARCHETYPE"

@@ -8,7 +8,7 @@ This file provides guidance to Claude Code (claude.ai/code) when working with co
 
 **Leer siempre primero:** `openspec/project.md` — es el source of truth del proyecto.
 
-Luego ejecutar `/opsx-status` para ver el estado de los cambios activos.
+Luego ejecutar `/stdd-status` para ver el estado de los cambios activos.
 
 ---
 
@@ -23,12 +23,12 @@ __STACK_SUMMARY__
 Todo cambio de código sigue este workflow — sin excepciones:
 
 ```
-/opsx-propose <nombre>   → proponer cambio, esperar aprobación
-/opsx-apply <nombre>     → generar spec + design + tasks
-/opsx-tdd-plan <nombre>  → definir tests ANTES de implementar
+/stdd-propose <nombre>   → proponer cambio, esperar aprobación
+/stdd-apply <nombre>     → generar spec + design + tasks
+/stdd-plan <nombre>  → definir tests ANTES de implementar
 [implementar]            → código + tests en paralelo
-/opsx-tdd-verify <nombre>→ verificar que todo pasa
-/opsx-archive <nombre>   → solo si tdd:verify = VERIFIED ✓
+/stdd-verify <nombre>→ verificar que todo pasa
+/stdd-archive <nombre>   → solo si tdd:verify = VERIFIED ✓
 ```
 
 **Reglas duras:**
@@ -42,12 +42,12 @@ Todo cambio de código sigue este workflow — sin excepciones:
 
 | Comando | Cuándo usarlo |
 |---------|--------------|
-| `/opsx-status` | Al iniciar sesión o para ver estado general |
-| `/opsx-propose <nombre>` | Para iniciar un nuevo cambio |
-| `/opsx-apply <nombre>` | Después de aprobar una proposal |
-| `/opsx-tdd-plan <nombre>` | Después de apply, antes de implementar |
-| `/opsx-tdd-verify <nombre>` | Después de implementar |
-| `/opsx-archive <nombre>` | Al cerrar un cambio verificado |
+| `/stdd-status` | Al iniciar sesión o para ver estado general |
+| `/stdd-propose <nombre>` | Para iniciar un nuevo cambio |
+| `/stdd-apply <nombre>` | Después de aprobar una proposal |
+| `/stdd-plan <nombre>` | Después de apply, antes de implementar |
+| `/stdd-verify <nombre>` | Después de implementar |
+| `/stdd-archive <nombre>` | Al cerrar un cambio verificado |
 
 ---
 

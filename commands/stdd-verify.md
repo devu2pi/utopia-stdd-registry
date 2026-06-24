@@ -1,11 +1,11 @@
 Verificá que la implementación cumple con todos los tests y criterios del cambio.
 
-El argumento es el nombre del cambio. Ejemplo: `/opsx-tdd-verify m1-auth`
+El argumento es el nombre del cambio. Ejemplo: `/stdd-verify m1-auth`
 
 ## Validaciones previas (BLOQUEANTES)
 
 1. Verificá que el argumento fue provisto.
-2. Leé `status.json`. El estado DEBE ser `TDD_PLANNED`. Si es anterior: "ERROR: ejecutá /opsx-tdd-plan <nombre> primero." Si ya es `TDD_VERIFIED`: "Este cambio ya fue verificado. Podés ejecutar /opsx-archive <nombre>."
+2. Leé `status.json`. El estado DEBE ser `TDD_PLANNED`. Si es anterior: "ERROR: ejecutá /stdd-plan <nombre> primero." Si ya es `TDD_VERIFIED`: "Este cambio ya fue verificado. Podés ejecutar /stdd-archive <nombre>."
 3. Verificá que NO hay tareas de implementación sin completar `- [ ]` en `tasks.md` (sección ## Implementación). Si las hay: "ERROR: hay [N] tareas sin completar en tasks.md. Completalas antes de verificar:\n[listar las incompletas]"
 
 ## Qué hacer si las validaciones pasan
@@ -77,6 +77,6 @@ Reemplazá la sección `## Verificación` con:
 
 ### 4. Comunicá el resultado
 
-**Si VERIFIED:** "Verificación completa ✓. Podés ejecutar /opsx-archive <nombre> para cerrar el cambio."
+**Si VERIFIED:** "Verificación completa ✓. Podés ejecutar /stdd-archive <nombre> para cerrar el cambio."
 
-**Si BLOCKED:** "Verificación bloqueada ✗. Problemas encontrados:\n[lista de fallos]\nCorregí los issues y volvé a ejecutar /opsx-tdd-verify <nombre>."
+**Si BLOCKED:** "Verificación bloqueada ✗. Problemas encontrados:\n[lista de fallos]\nCorregí los issues y volvé a ejecutar /stdd-verify <nombre>."

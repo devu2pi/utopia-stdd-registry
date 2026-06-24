@@ -1,12 +1,12 @@
 Generá los artefactos de diseño e implementación para un cambio aprobado.
 
-El argumento es el nombre del cambio. Ejemplo: `/opsx-apply m1-auth`
+El argumento es el nombre del cambio. Ejemplo: `/stdd-apply m1-auth`
 
 ## Validaciones previas (BLOQUEANTES)
 
 1. Verificá que el argumento fue provisto.
 2. Verificá que existe `openspec/changes/<nombre>/proposal.md`.
-3. Leé `openspec/changes/<nombre>/status.json`. El estado DEBE ser `APPROVED`. Si es `DRAFT`: "ERROR: la proposal de '<nombre>' no fue aprobada todavía. Revisala y pedí aprobación antes de continuar." Si es cualquier estado posterior a APPROVED: "Este cambio ya fue aplicado (estado: <estado>). Usá /opsx-status para ver qué sigue."
+3. Leé `openspec/changes/<nombre>/status.json`. El estado DEBE ser `APPROVED`. Si es `DRAFT`: "ERROR: la proposal de '<nombre>' no fue aprobada todavía. Revisala y pedí aprobación antes de continuar." Si es cualquier estado posterior a APPROVED: "Este cambio ya fue aplicado (estado: <estado>). Usá /stdd-status para ver qué sigue."
 4. Leé `openspec/project.md` — lo necesitás como contexto para generar los artefactos.
 
 ## Qué hacer si las validaciones pasan
@@ -107,7 +107,7 @@ Generá los tres artefactos en `openspec/changes/<nombre>/`:
 ---
 
 ## Tests Requeridos
-> Completar con /opsx-tdd-plan antes de implementar
+> Completar con /stdd-plan antes de implementar
 
 [pendiente]
 
@@ -129,7 +129,7 @@ Generá los tres artefactos en `openspec/changes/<nombre>/`:
 ---
 
 ## Verificación
-> Completar con /opsx-tdd-verify
+> Completar con /stdd-verify
 
 - [ ] tdd:verify ejecutado: pendiente
 - [ ] Nivel de aprobación: [1 / 2 / 3]
@@ -138,4 +138,4 @@ Generá los tres artefactos en `openspec/changes/<nombre>/`:
 
 Actualizá `status.json` a `"state": "APPLIED"` con entrada en historial.
 
-Al terminar, decile al usuario: "Artefactos generados. Próximo paso: /opsx-tdd-plan <nombre> para definir los tests antes de implementar."
+Al terminar, decile al usuario: "Artefactos generados. Próximo paso: /stdd-plan <nombre> para definir los tests antes de implementar."

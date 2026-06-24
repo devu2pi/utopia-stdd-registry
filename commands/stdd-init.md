@@ -5,7 +5,7 @@ Inicializá el proyecto actual con la metodología utopia-stdd-registry.
 ### 1. Detectar contexto
 
 Leé el directorio de trabajo actual:
-- Si existe `.claude/commands/opsx-status.md` → el proyecto YA está inicializado. Informar: "Este proyecto ya tiene el registry instalado. Ejecutá /opsx-status para ver el estado actual." y detener.
+- Si existe `.claude/commands/stdd-status.md` → el proyecto YA está inicializado. Informar: "Este proyecto ya tiene el registry instalado. Ejecutá /stdd-status para ver el estado actual." y detener.
 - Si existe `openspec/project.md` con contenido real (no solo placeholders) → proyecto existente con documentación parcial.
 - Si no existe nada → proyecto nuevo.
 
@@ -34,7 +34,7 @@ Si el comando falla, mostrá el error y sugerí verificar conexión a internet o
 
 Después de que el script termine, verificá que existan:
 - `.agent/config.yaml`
-- `.claude/commands/opsx-status.md`
+- `.claude/commands/stdd-status.md`
 - `openspec/project.md`
 - `CLAUDE.md`
 
@@ -51,11 +51,11 @@ Si alguno de los archivos anteriores YA existía antes del init con contenido re
 
 Registry: github.com/devu2pi/utopia-stdd-registry
 Archetype: <archetype>
-Comandos instalados: /opsx-status, /opsx-propose, /opsx-apply,
-                     /opsx-tdd-plan, /opsx-tdd-verify, /opsx-archive
+Comandos instalados: /stdd-status, /stdd-propose, /stdd-apply,
+                     /stdd-plan, /stdd-verify, /stdd-archive
 
 Próximos pasos:
   1. Completá openspec/project.md con el contexto real del proyecto
-  2. Ejecutá /opsx-status para ver el estado inicial
-  3. Cuando estés listo: /opsx-propose <nombre-del-primer-modulo>
+  2. Ejecutá /stdd-status para ver el estado inicial
+  3. Cuando estés listo: /stdd-propose <nombre-del-primer-modulo>
 ```

@@ -410,12 +410,12 @@
       <div class="install-step">
         <div class="install-num">1</div>
         <div class="install-content">
-          <h3>Instalar el comando global <code style="font-size:13px;background:var(--code-bg);padding:2px 8px;border-radius:4px;border:1px solid var(--border)">/opsx-init</code></h3>
+          <h3>Instalar el comando global <code style="font-size:13px;background:var(--code-bg);padding:2px 8px;border-radius:4px;border:1px solid var(--border)">/stdd-init</code></h3>
           <p>Hacelo una sola vez en tu máquina. Instala el comando en Claude Code de forma global para que esté disponible en cualquier proyecto.</p>
-          <pre><code><span class="hl-comment"># Una sola vez — instala /opsx-init globalmente</span>
+          <pre><code><span class="hl-comment"># Una sola vez — instala /stdd-init globalmente</span>
 <span class="hl-cmd">mkdir</span> -p ~/.claude/commands
-<span class="hl-cmd">curl</span> -fsSL https://raw.githubusercontent.com/devu2pi/utopia-stdd-registry/main/commands/opsx-init.md \
-  -o ~/.claude/commands/opsx-init.md</code></pre>
+<span class="hl-cmd">curl</span> -fsSL https://raw.githubusercontent.com/devu2pi/utopia-stdd-registry/main/commands/stdd-init.md \
+  -o ~/.claude/commands/stdd-init.md</code></pre>
         </div>
       </div>
 
@@ -425,7 +425,7 @@
           <h3>Inicializar un proyecto</h3>
           <p>Abrí Claude Code en la carpeta del proyecto (nuevo o existente) y ejecutá:</p>
           <pre><code><span class="hl-comment"># En Claude Code, parado en la raíz del proyecto</span>
-<span class="hl-kw">/opsx-init</span></code></pre>
+<span class="hl-kw">/stdd-init</span></code></pre>
           <p>Claude detecta si el proyecto es nuevo o existente, pregunta el archetype si hace falta, y configura todo automáticamente.</p>
         </div>
       </div>
@@ -436,7 +436,7 @@
           <h3>Completar el contexto del proyecto</h3>
           <p>El único paso manual: completar <code style="font-size:13px;background:var(--code-bg);padding:2px 8px;border-radius:4px;border:1px solid var(--border)">openspec/project.md</code> con la descripción real del sistema, módulos y decisiones técnicas. Claude lo lee al inicio de cada sesión.</p>
           <pre><code><span class="hl-comment"># Verificar estado inicial</span>
-<span class="hl-kw">/opsx-status</span></code></pre>
+<span class="hl-kw">/stdd-status</span></code></pre>
         </div>
       </div>
 
@@ -458,7 +458,7 @@
       <div class="workflow-step">
         <div class="step-icon">1</div>
         <div class="step-body">
-          <div class="step-cmd">/opsx-propose &lt;nombre&gt;</div>
+          <div class="step-cmd">/stdd-propose &lt;nombre&gt;</div>
           <h3>Proponer</h3>
           <p class="step-desc">Creá una propuesta con qué se cambia, por qué, qué incluye y qué no. Claude valida que <code>openspec/project.md</code> esté completo antes de continuar.</p>
         </div>
@@ -475,7 +475,7 @@
       <div class="workflow-step">
         <div class="step-icon">2</div>
         <div class="step-body">
-          <div class="step-cmd">/opsx-apply &lt;nombre&gt;</div>
+          <div class="step-cmd">/stdd-apply &lt;nombre&gt;</div>
           <h3>Aplicar</h3>
           <p class="step-desc">Genera <code>spec.md</code> (escenarios de comportamiento), <code>design.md</code> (decisiones técnicas) y <code>tasks.md</code> (checklist de implementación).</p>
         </div>
@@ -484,7 +484,7 @@
       <div class="workflow-step">
         <div class="step-icon">3</div>
         <div class="step-body">
-          <div class="step-cmd">/opsx-tdd-plan &lt;nombre&gt;</div>
+          <div class="step-cmd">/stdd-plan &lt;nombre&gt;</div>
           <h3>Planificar tests</h3>
           <p class="step-desc">Define los tests requeridos derivados de los escenarios de la spec. Cada tarea de implementación debe tener al menos un <code>TEST-XX</code> asociado.</p>
           <div class="gate-label">⚠ Gate — no implementar sin tdd:plan completo</div>
@@ -503,7 +503,7 @@
       <div class="workflow-step">
         <div class="step-icon">5</div>
         <div class="step-body">
-          <div class="step-cmd">/opsx-tdd-verify &lt;nombre&gt;</div>
+          <div class="step-cmd">/stdd-verify &lt;nombre&gt;</div>
           <h3>Verificar</h3>
           <p class="step-desc">Ejecuta los comandos de test del stack, verifica criterios de aceptación, chequea alineación con el registry. Produce <strong>VERIFIED ✓</strong> o <strong>BLOCKED</strong> con motivo.</p>
           <div class="gate-label">⚠ Gate — no archivar sin VERIFIED ✓</div>
@@ -513,7 +513,7 @@
       <div class="workflow-step">
         <div class="step-icon">6</div>
         <div class="step-body">
-          <div class="step-cmd">/opsx-archive &lt;nombre&gt;</div>
+          <div class="step-cmd">/stdd-archive &lt;nombre&gt;</div>
           <h3>Archivar</h3>
           <p class="step-desc">Mergea la spec al source of truth en <code>openspec/specs/</code>, actualiza <code>project.md</code> con las decisiones tomadas y sugiere el commit de cierre.</p>
         </div>
@@ -530,7 +530,7 @@
       </div>
       <div class="state-card active">
         <div class="state-name">APPROVED</div>
-        <div class="state-desc">Proposal aprobada, lista para /opsx-apply</div>
+        <div class="state-desc">Proposal aprobada, lista para /stdd-apply</div>
       </div>
       <div class="state-card active">
         <div class="state-name">APPLIED</div>

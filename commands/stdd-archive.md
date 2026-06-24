@@ -1,11 +1,11 @@
 Archivá un cambio verificado y mergea su spec al source of truth del proyecto.
 
-El argumento es el nombre del cambio. Ejemplo: `/opsx-archive m1-auth`
+El argumento es el nombre del cambio. Ejemplo: `/stdd-archive m1-auth`
 
 ## Validaciones previas (BLOQUEANTES — todas deben cumplirse)
 
 1. Verificá que el argumento fue provisto.
-2. Leé `status.json`. El estado DEBE ser `TDD_VERIFIED`. Si es cualquier otro: "ERROR: no podés archivar un cambio que no fue verificado. Estado actual: <estado>. Ejecutá /opsx-tdd-verify <nombre> primero."
+2. Leé `status.json`. El estado DEBE ser `TDD_VERIFIED`. Si es cualquier otro: "ERROR: no podés archivar un cambio que no fue verificado. Estado actual: <estado>. Ejecutá /stdd-verify <nombre> primero."
 3. Leé `tasks.md` y verificá que el resultado final de verificación diga `VERIFIED ✓`. Si dice `BLOCKED`: "ERROR: el cambio está BLOCKED. Resolvé los issues primero."
 4. Verificá que NO existen tareas sin completar `- [ ]` en ninguna sección de `tasks.md`.
 5. Verificá el nivel de aprobación requerido en `tasks.md`:
@@ -54,5 +54,5 @@ Tareas completadas: [N]/[N]
 Nivel de aprobación: [1/2/3]
 
 Spec disponible en: openspec/specs/<nombre>.md
-Próximo cambio sugerido: /opsx-status
+Próximo cambio sugerido: /stdd-status
 ```

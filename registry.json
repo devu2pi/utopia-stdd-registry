@@ -54,12 +54,12 @@
   "commands": {
     "version": "v1",
     "files": [
-      "opsx-status.md",
-      "opsx-propose.md",
-      "opsx-apply.md",
-      "opsx-tdd-plan.md",
-      "opsx-tdd-verify.md",
-      "opsx-archive.md"
+      "stdd-status.md",
+      "stdd-propose.md",
+      "stdd-apply.md",
+      "stdd-plan.md",
+      "stdd-verify.md",
+      "stdd-archive.md"
     ],
     "install_path": ".claude/commands/",
     "description": "Comandos Claude Code para el workflow OpenSpec tdd-driven"

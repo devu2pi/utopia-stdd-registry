@@ -68,4 +68,4 @@ Hard gates:
 - Do not advance to implementation without a complete `tdd:plan`
 - Do not archive without `tdd:verify = VERIFIED ✓`
 
-Commands: `/opsx:propose`, `/opsx:apply`, `/opsx:tdd:plan`, `/opsx:tdd:verify`, `/opsx:archive`
+Commands: `/stdd-propose`, `/stdd-apply`, `/stdd-plan`, `/stdd-verify`, `/stdd-archive`
