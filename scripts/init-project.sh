@@ -14,9 +14,34 @@
 
 set -euo pipefail
 
-REGISTRY_DIR="$(cd "$(dirname "${BASH_SOURCE[0]}")/.." && pwd)"
+REGISTRY_REPO="devu2pi/utopia-stdd-registry"
+REGISTRY_URL="https://github.com/$REGISTRY_REPO"
+REGISTRY_RAW="https://raw.githubusercontent.com/$REGISTRY_REPO/main"
+
+# Si el script se ejecuta desde un clone local del registry, usarlo directamente.
+# Si se ejecuta remotamente (curl | bash), clonar el registry en un temp dir.
+SCRIPT_DIR="$(cd "$(dirname "${BASH_SOURCE[0]:-/dev/null}")" 2>/dev/null && pwd || echo "")"
+if [ -n "$SCRIPT_DIR" ] && [ -f "$SCRIPT_DIR/../registry.json" ]; then
+  REGISTRY_DIR="$(cd "$SCRIPT_DIR/.." && pwd)"
+  TEMP_REGISTRY=""
+else
+  REGISTRY_DIR="$(mktemp -d)"
+  TEMP_REGISTRY="$REGISTRY_DIR"
+  echo -e "\033[0;34m[opsx]\033[0m Descargando registry desde GitHub..."
+  git clone --depth=1 --quiet "$REGISTRY_URL" "$REGISTRY_DIR" 2>/dev/null || {
+    echo -e "\033[0;31m[opsx]\033[0m ERROR: No se pudo clonar $REGISTRY_URL"
+    echo "       Verificá tu conexión o que el repo sea público."
+    exit 1
+  }
+fi
+
 COMMANDS_DIR="$REGISTRY_DIR/commands"
 TEMPLATES_DIR="$REGISTRY_DIR/templates"
+
+cleanup() {
+  [ -n "$TEMP_REGISTRY" ] && rm -rf "$TEMP_REGISTRY"
+}
+trap cleanup EXIT
 
 # ── Colores ────────────────────────────────────────────────────────────────
 GREEN='\033[0;32m'

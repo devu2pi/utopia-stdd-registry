@@ -4,7 +4,7 @@
 
 registry:
   source: github
-  repo: __REGISTRY_REPO__      # reemplazar con tu org/skill-registry
+  repo: devu2pi/utopia-stdd-registry
   ref: main
 
 skills:
