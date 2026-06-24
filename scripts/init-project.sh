@@ -96,12 +96,17 @@ for a in "${VALID_ARCHETYPES[@]}"; do [ "$a" = "$ARCHETYPE" ] && VALID=true; don
 [ "$VALID" = false ] && error "Archetype '$ARCHETYPE' no válido. Opciones: ${VALID_ARCHETYPES[*]}"
 
 # ── Destino ────────────────────────────────────────────────────────────────
-[ -z "$DEST_PATH" ] && DEST_PATH="./$PROJECT_NAME"
+# "." o "./" significa usar el directorio actual
+if [ -z "$DEST_PATH" ]; then
+  DEST_PATH="./$PROJECT_NAME"
+elif [ "$DEST_PATH" = "." ] || [ "$DEST_PATH" = "./" ]; then
+  DEST_PATH="$(pwd)"
+fi
 
 case "$ARCHETYPE" in
-  webapp-nextjs) STACK_SUMMARY="Next.js 14+ | TypeScript strict | Tailwind | shadcn/ui | Supabase | Zustand | TanStack Query | Vitest | Playwright | Vercel" ;;
-  api-fastapi)   STACK_SUMMARY="FastAPI 0.100+ | Python 3.11+ | Pydantic v2 | SQLAlchemy 2.0 | PostgreSQL 15 | Alembic | pytest | Docker | Railway" ;;
-  fullstack)     STACK_SUMMARY="Next.js 14+ | FastAPI | TypeScript + Python | Supabase | Tailwind | Vitest + Playwright + pytest" ;;
+  webapp-nextjs) STACK_SUMMARY="Next.js 14+ - TypeScript strict - Tailwind - shadcn/ui - Supabase - Zustand - TanStack Query - Vitest - Playwright - Vercel" ;;
+  api-fastapi)   STACK_SUMMARY="FastAPI 0.100+ - Python 3.11+ - Pydantic v2 - SQLAlchemy 2.0 - PostgreSQL 15 - Alembic - pytest - Docker - Railway" ;;
+  fullstack)     STACK_SUMMARY="Next.js 14+ - FastAPI - TypeScript + Python - Supabase - Tailwind - Vitest - Playwright - pytest" ;;
 esac
 
 # ── Confirmar ──────────────────────────────────────────────────────────────
@@ -170,7 +175,7 @@ fi
 # CLAUDE.md — solo si no existe
 if [ ! -f "$DEST_PATH/CLAUDE.md" ]; then
   info "Generando CLAUDE.md..."
-  sed -e "s/__STACK_SUMMARY__/$STACK_SUMMARY/g" \
+  sed -e "s#__STACK_SUMMARY__#$STACK_SUMMARY#g" \
     "$TEMPLATES_DIR/CLAUDE.md" > "$DEST_PATH/CLAUDE.md"
   success "CLAUDE.md generado"
 else
