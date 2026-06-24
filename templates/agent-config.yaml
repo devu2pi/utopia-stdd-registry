@@ -1,0 +1,23 @@
+# .agent/config.yaml
+# Configuración del agente IA para este proyecto
+# Generado por: utopia-stdd-registry init
+
+registry:
+  source: github
+  repo: __REGISTRY_REPO__      # reemplazar con tu org/skill-registry
+  ref: main
+
+skills:
+  openspec:      "v1"
+  tdd-extension: "v1"
+  architecture:  "v1"
+  stack:         "latest"
+  code-review:   "v1"
+
+archetype: __ARCHETYPE__       # webapp-nextjs | api-fastapi | fullstack
+
+schema: tdd-driven
+
+project:
+  name: "__PROJECT_NAME__"
+  description: "__PROJECT_DESCRIPTION__"

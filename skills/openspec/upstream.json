@@ -1,0 +1,7 @@
+{
+  "upstream_repo": "Fission-AI/OpenSpec",
+  "upstream_url": "https://github.com/Fission-AI/OpenSpec",
+  "last_synced": "2026-06-24",
+  "tracked_version": "latest",
+  "notes": "Sync manual requerido. Revisar CHANGELOG upstream antes de mergear."
+}

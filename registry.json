@@ -1,0 +1,69 @@
+{
+  "version": "1.1.0",
+  "updated": "2026-06-24",
+  "maintainer": "arquitectura",
+
+  "skills": {
+    "openspec": {
+      "latest": "v1",
+      "supported": ["v1"],
+      "upstream": "https://github.com/Fission-AI/OpenSpec",
+      "upstream_version": "latest",
+      "description": "Metodología SDD base para desarrollo asistido por IA"
+    },
+    "tdd-extension": {
+      "latest": "v1",
+      "supported": ["v1"],
+      "description": "Extensión TDD sobre OpenSpec con fases de verificación y aprobación"
+    },
+    "code-review": {
+      "latest": "v1",
+      "supported": ["v1"],
+      "description": "Estándares y checklist de revisión de código"
+    },
+    "architecture": {
+      "latest": "v1",
+      "supported": ["v1"],
+      "description": "Patrones arquitecturales, principios y decisiones centrales"
+    },
+    "stack": {
+      "latest": "v1",
+      "supported": ["v1"],
+      "description": "Tecnologías aprobadas, versiones y configuraciones base"
+    }
+  },
+
+  "archetypes": {
+    "webapp-nextjs": {
+      "version": "v1",
+      "description": "SPA/SSR con Next.js 14+, Supabase, Tailwind, TypeScript",
+      "skills_included": ["openspec", "tdd-extension", "code-review", "architecture", "stack"]
+    },
+    "api-fastapi": {
+      "version": "v1",
+      "description": "API REST con FastAPI, PostgreSQL, Redis, Docker",
+      "skills_included": ["openspec", "tdd-extension", "code-review", "architecture", "stack"]
+    },
+    "fullstack": {
+      "version": "v1",
+      "description": "Fullstack completo Next.js + FastAPI + Supabase",
+      "skills_included": ["openspec", "tdd-extension", "code-review", "architecture", "stack"]
+    }
+  },
+
+  "commands": {
+    "version": "v1",
+    "files": [
+      "opsx-status.md",
+      "opsx-propose.md",
+      "opsx-apply.md",
+      "opsx-tdd-plan.md",
+      "opsx-tdd-verify.md",
+      "opsx-archive.md"
+    ],
+    "install_path": ".claude/commands/",
+    "description": "Comandos Claude Code para el workflow OpenSpec tdd-driven"
+  },
+
+  "deprecated": {}
+}

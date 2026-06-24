@@ -1,0 +1,57 @@
+# Schema: tdd-driven
+# Workflow SDD extendido con TDD — fases de test antes de implementación
+# Usar con: openspec schema use tdd-driven
+
+name: tdd-driven
+description: >
+  Schema que extiende spec-driven con fases explícitas de TDD.
+  Agrega tdd:plan antes de implementar y tdd:verify antes de archivar.
+  Recomendado para cambios en módulos críticos o con lógica de negocio compleja.
+
+phases:
+  - id: proposal
+    artifact: proposal.md
+    description: "Qué se propone y por qué"
+    required: true
+
+  - id: spec
+    artifact: specs/<feature>.md
+    description: "Requisitos y escenarios de comportamiento"
+    required: true
+
+  - id: design
+    artifact: design.md
+    description: "Approach técnico, decisiones, impacto en arquitectura"
+    required: true
+
+  - id: tdd-plan
+    artifact: tasks.md (sección Tests Requeridos)
+    description: "Definir tests ANTES de implementar. Ver tdd-extension/v1.md"
+    required: true
+    gate: "No avanzar a implementación sin tdd:plan completo"
+
+  - id: tasks
+    artifact: tasks.md (sección Implementación)
+    description: "Checklist de implementación con referencias a tests"
+    required: true
+
+  - id: tdd-verify
+    artifact: tasks.md (sección Verificación)
+    description: "Ejecutar y documentar resultado de todos los tests. Ver tdd-extension/v1.md"
+    required: true
+    gate: "No archivar sin tdd:verify = VERIFIED ✓"
+
+  - id: archive
+    description: "Mergear spec delta al source of truth"
+    required: true
+    preconditions:
+      - "tdd:verify status = VERIFIED ✓"
+      - "Todos los tasks.md items completados [x]"
+      - "Nivel de aprobación requerido obtenido"
+
+commands:
+  propose: "/opsx:propose"
+  apply:   "/opsx:apply"
+  tdd_plan:   "/opsx:tdd:plan"
+  tdd_verify: "/opsx:tdd:verify"
+  archive: "/opsx:archive"
