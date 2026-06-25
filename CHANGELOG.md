@@ -33,6 +33,48 @@ for f in opsx-*.md; do mv "$f" "stdd-${f#opsx-}"; done
 
 ---
 
+## [1.3.0] — 2026-06-25
+
+### Qué cambió
+
+Agrega el comando `stdd-implement` que cubre la etapa de implementación del workflow STDD.
+Hasta esta versión la implementación era una caja negra entre `/stdd-plan` y `/stdd-verify`
+— no había trazabilidad ni estado explícito. Este comando formaliza esa etapa.
+
+### Cambios por componente
+
+- **commands**: agrega `stdd-implement.md`
+- **registry.json**: versión bumpeada a 1.3.0, `stdd-implement.md` en lista de archivos
+
+### Flujo actualizado
+
+```
+/stdd-propose   → crea proposal
+/stdd-apply     → genera spec + design + tasks
+/stdd-plan      → define tests (estado: TDD_PLANNED)
+/stdd-implement → implementa tareas (estado: IN_PROGRESS → IMPLEMENTED)  ← NUEVO
+/stdd-verify    → verifica criterios de aceptación
+/stdd-archive   → archiva el cambio verificado
+```
+
+### Acciones de migración
+
+#### [context] Por qué se agrega este comando
+La implementación era la única etapa sin comando propio. Esto impedía trazabilidad del
+progreso, no había estado `IN_PROGRESS` en el historial, y no había protocolo claro para
+marcar tareas completadas o registrar deuda técnica durante la implementación.
+
+#### [action] Instalar el nuevo comando globalmente
+```bash
+curl -fsSL https://raw.githubusercontent.com/devu2pi/utopia-stdd-registry/main/commands/stdd-implement.md \
+  -o ~/.claude/commands/stdd-implement.md
+```
+
+#### [action] Actualizar `registry.version` en `.agent/config.yaml`
+Cambiar la versión declarada a `"1.3.0"`.
+
+---
+
 ## [1.2.0] — 2026-06-25
 
 ### Qué cambió

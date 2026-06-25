@@ -1,5 +1,5 @@
 {
-  "version": "1.2.0",
+  "version": "1.3.0",
   "updated": "2026-06-25",
   "maintainer": "arquitectura",
 
@@ -61,7 +61,8 @@
       "stdd-plan.md",
       "stdd-verify.md",
       "stdd-archive.md",
-      "stdd-validate.md"
+      "stdd-validate.md",
+      "stdd-implement.md"
     ],
     "install_path": "~/.claude/commands/",
     "scope": "user",
