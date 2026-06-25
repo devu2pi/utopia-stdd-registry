@@ -91,19 +91,35 @@ Breaking pendientes: N
 
 Esperá confirmación antes de continuar.
 
-## 5. Aplicar acciones
+## 5. Sincronizar comandos
 
-Para cada acción `[✗]` en orden (de versión más antigua a más nueva):
+Antes de aplicar las acciones del CHANGELOG, sincronizá los comandos globales con la versión destino:
+
+Obtené `registry.json` de la versión destino y extraé `commands.files[]`. Para cada archivo en la lista:
+- Si no existe en `~/.claude/commands/`: descargalo (`curl -fsSL .../commands/<archivo> -o ~/.claude/commands/<archivo>`)
+- Si existe: sobreescribilo con la versión destino
+- Reportá cada archivo: `↓ <archivo>` al descargarlo, `↺ <archivo>` al actualizarlo
+
+```
+Sincronizando comandos (X.Y.Z → A.B.C)...
+↓ stdd-implement.md   (nuevo)
+↺ stdd-validate.md   (actualizado)
+✓ stdd-propose.md    (sin cambios)
+```
+
+## 6. Aplicar acciones del CHANGELOG
+
+Para cada acción `[✗]` del CHANGELOG en orden (de versión más antigua a más nueva):
 
 - Anunciá qué acción estás ejecutando
-- Para acciones que implican instalar archivos con `curl`: ejecutá el comando
+- Para acciones que implican instalar archivos de comandos: ya fueron sincronizados en el paso anterior, marcalas `[✓]` automáticamente
 - Para acciones que implican modificar archivos del proyecto: aplicá el cambio directamente
-- Para acciones que requieren intervención manual (ej: eliminar carpetas del proyecto del usuario): mostrá las instrucciones y pedí confirmación de que fue hecho antes de continuar
+- Para acciones que requieren intervención manual: mostrá las instrucciones y pedí confirmación antes de continuar
 - Al completar cada acción, marcala como `[✓]`
 
 Si una acción `[breaking]` falla o el usuario la omite, detené el upgrade y reportá el estado.
 
-## 6. Actualizar versión declarada
+## 7. Actualizar versión declarada
 
 Al completar todas las acciones (o si no había acciones pendientes), actualizá `registry.version` en `.agent/config.yaml` a la versión destino.
 

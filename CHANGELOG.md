@@ -33,6 +33,37 @@ for f in opsx-*.md; do mv "$f" "stdd-${f#opsx-}"; done
 
 ---
 
+## [1.5.0] — 2026-06-25
+
+### Qué cambió
+
+Agrega `scripts/install-last.sh` para el bootstrap inicial de comandos sin tener que correr
+curls manuales. Mejora `stdd-upgrade` para que sincronice automáticamente los archivos de
+comandos como parte del proceso de upgrade — sin intervención manual para instalar comandos nuevos.
+
+### Cambios por componente
+
+- **scripts**: agrega `install-last.sh` — descarga todos los comandos de la última versión
+- **commands/stdd-upgrade.md**: agrega paso de sincronización de comandos antes de aplicar el CHANGELOG
+
+### Acciones de migración
+
+#### [context] Flujo de instalación definitivo
+Primera vez: `curl -fsSL .../scripts/install-last.sh | bash` — instala todo.
+A partir de ahí: `/stdd-upgrade` desde cualquier proyecto — detecta versión, sincroniza
+comandos automáticamente y aplica el CHANGELOG. Sin curls manuales nunca más.
+
+#### [action] Actualizar stdd-upgrade si ya estaba instalado
+```bash
+curl -fsSL https://raw.githubusercontent.com/devu2pi/utopia-stdd-registry/main/commands/stdd-upgrade.md \
+  -o ~/.claude/commands/stdd-upgrade.md
+```
+
+#### [action] Actualizar `registry.version` en `.agent/config.yaml`
+Cambiar la versión declarada a `"1.5.0"`.
+
+---
+
 ## [1.4.0] — 2026-06-25
 
 ### Qué cambió
