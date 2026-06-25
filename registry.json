@@ -1,6 +1,6 @@
 {
-  "version": "1.1.0",
-  "updated": "2026-06-24",
+  "version": "1.2.0",
+  "updated": "2026-06-25",
   "maintainer": "arquitectura",
 
   "skills": {
@@ -54,15 +54,18 @@
   "commands": {
     "version": "v1",
     "files": [
+      "stdd-init.md",
       "stdd-status.md",
       "stdd-propose.md",
       "stdd-apply.md",
       "stdd-plan.md",
       "stdd-verify.md",
-      "stdd-archive.md"
+      "stdd-archive.md",
+      "stdd-validate.md"
     ],
-    "install_path": ".claude/commands/",
-    "description": "Comandos Claude Code para el workflow OpenSpec tdd-driven"
+    "install_path": "~/.claude/commands/",
+    "scope": "user",
+    "description": "Comandos Claude Code para el workflow STDD — se instalan a nivel global (user), disponibles en cualquier proyecto"
   },
 
   "deprecated": {}

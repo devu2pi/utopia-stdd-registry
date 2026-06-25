@@ -137,14 +137,11 @@ echo ""
 info "Creando estructura..."
 
 mkdir -p "$DEST_PATH/.agent"
-mkdir -p "$DEST_PATH/.claude/commands"
 mkdir -p "$DEST_PATH/openspec/changes"
 mkdir -p "$DEST_PATH/openspec/specs"
 
-# Comandos STDD — siempre se sobreescriben (son del registry, no del proyecto)
-info "Instalando comandos STDD..."
-cp "$COMMANDS_DIR"/*.md "$DEST_PATH/.claude/commands/"
-success "Comandos instalados en .claude/commands/ (7 comandos)"
+# Los comandos STDD viven en ~/.claude/commands/ (nivel máquina), no en el proyecto.
+# stdd-init ya los instaló globalmente al bootstrapear.
 
 # .agent/config.yaml — solo si no existe
 if [ ! -f "$DEST_PATH/.agent/config.yaml" ]; then
@@ -196,7 +193,6 @@ echo -e "${GREEN}║  Proyecto inicializado ✓                 ║${NC}"
 echo -e "${GREEN}╚══════════════════════════════════════════╝${NC}"
 echo ""
 echo "  .agent/config.yaml     ← configuración del registry"
-echo "  .claude/commands/      ← 7 comandos STDD"
 echo "  openspec/project.md    ← completar con contexto del proyecto"
 echo "  CLAUDE.md              ← guía para Claude Code"
 echo ""
