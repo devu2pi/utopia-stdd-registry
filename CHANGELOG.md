@@ -33,6 +33,38 @@ for f in opsx-*.md; do mv "$f" "stdd-${f#opsx-}"; done
 
 ---
 
+## [1.4.0] — 2026-06-25
+
+### Qué cambió
+
+Agrega el comando `stdd-upgrade` para gestionar actualizaciones de versión del registry.
+Separa responsabilidades: `/stdd-validate` verifica compatibilidad con la versión declarada;
+`/stdd-upgrade` detecta versiones nuevas y guía la migración, pidiendo confirmación de versión
+destino cuando hay más de un salto disponible.
+
+### Cambios por componente
+
+- **commands**: agrega `stdd-upgrade.md`
+- **registry.json**: versión bumpeada a 1.4.0, `stdd-upgrade.md` en lista de archivos
+
+### Acciones de migración
+
+#### [context] Por qué se separa validate de upgrade
+`/stdd-validate` no siempre implica querer subir de versión — puede usarse como health-check
+en cualquier momento. Mezclar detección de drift con aplicación de upgrades hacía el comando
+ambiguo. `/stdd-upgrade` es explícito: el usuario lo invoca cuando quiere actualizar.
+
+#### [action] Instalar el nuevo comando globalmente
+```bash
+curl -fsSL https://raw.githubusercontent.com/devu2pi/utopia-stdd-registry/main/commands/stdd-upgrade.md \
+  -o ~/.claude/commands/stdd-upgrade.md
+```
+
+#### [action] Actualizar `registry.version` en `.agent/config.yaml`
+Cambiar la versión declarada a `"1.4.0"`.
+
+---
+
 ## [1.3.0] — 2026-06-25
 
 ### Qué cambió
